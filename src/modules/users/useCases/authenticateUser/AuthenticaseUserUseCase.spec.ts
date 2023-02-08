@@ -1,6 +1,7 @@
 import { AppError } from "../../../../shared/errors/AppError";
 import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUsersRepository";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
+import { ICreateUserDTO } from "../createUser/ICreateUserDTO";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
 let authenticateUserUseCase: AuthenticateUserUseCase;
@@ -15,7 +16,7 @@ describe("Authenticate User", () => {
   });
 
   it("should be able to authenticate an user", async () => {
-    const user = {
+    const user: ICreateUserDTO = {
       name: "Test name",
       email: "test@test.com",
       password: "12345"
@@ -42,7 +43,7 @@ describe("Authenticate User", () => {
 
   it("should not be able to authenticate with incorrect password", () => {
     expect(async () => {
-      const user = {
+      const user: ICreateUserDTO = {
         name: "Test name",
         email: "test@test.com",
         password: "12345"
@@ -51,9 +52,9 @@ describe("Authenticate User", () => {
       await createUserUseCase.execute(user);
 
       await authenticateUserUseCase.execute({
-        email: "test@test.com",
+        email: user.email,
         password: "incorrectPassword"
-      })
+      });
 
     }).rejects.toBeInstanceOf(AppError);
   });
