@@ -37,12 +37,6 @@ describe("Authenticate User", () => {
         email: "fake@email.com",
         password: "1234"
       })
-
-      await createUserUseCase.execute({
-        name: "Test name",
-        email: "test@test.com",
-        password: "12345"
-      });
     }).rejects.toBeInstanceOf(AppError);
   });
 
