@@ -9,6 +9,10 @@ import './shared/container';
 import { router } from './routes';
 import { AppError } from './shared/errors/AppError';
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const app = express();
 
 app.use(cors());
